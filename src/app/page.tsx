@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import prisma from '@/lib/prisma';
 import Image from 'next/image';
+import { getSession } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 const CATEGORIES = [
   { id: '한식', icon: '🍚' },
@@ -21,6 +23,11 @@ const CATEGORIES = [
 ];
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ category?: string }> | { category?: string } }) {
+  const session = await getSession();
+  if (!session || !session.user) {
+    redirect('/login');
+  }
+
   const resolvedParams = await searchParams;
   const currentCategory = resolvedParams.category || '전체';
 
