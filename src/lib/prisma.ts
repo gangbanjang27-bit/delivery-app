@@ -7,7 +7,7 @@ const originalEmitWarning = process.emitWarning;
 // @ts-ignore
 process.emitWarning = function (warning, type, code, ...args) {
   if (typeof warning === 'string' && warning.includes('SECURITY WARNING: The SSL modes')) return;
-  return originalEmitWarning(warning, type as any, code as any, ...args);
+  return originalEmitWarning(warning, type as any, code as any, ...args as any[]);
 };
 
 const connectionString = `${process.env.DATABASE_URL}`;
