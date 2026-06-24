@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  orders    Order[]
+  createdAt DateTime @default(now())
+}
+
+model Restaurant {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String?
+  menus       Menu[]
+  createdAt   DateTime @default(now())
+}
+
+model Menu {
+  id           Int         @id @default(autoincrement())
+  name         String
+  price        Int
+  description  String?
+  restaurantId Int
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  orderItems   OrderItem[]
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  user       User        @relation(fields: [userId], references: [id])
+  totalPrice Int
+  status     String      @default("PENDING") // PENDING, COMPLETED, CANCELLED
+  orderItems OrderItem[]
+  createdAt  DateTime    @default(now())
+}
+
+model OrderItem {
+  id       Int   @id @default(autoincrement())
+  orderId  Int
+  order    Order @relation(fields: [orderId], references: [id])
+  menuId   Int
+  menu     Menu  @relation(fields: [menuId], references: [id])
+  quantity Int
+  price    Int   // price at the time of order
+}
