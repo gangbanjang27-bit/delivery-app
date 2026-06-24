@@ -5,9 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCartStore } from '@/store/useCartStore';
 import { useRouter } from 'next/navigation';
+import { createOrder } from '@/actions/order';
+import { useState } from 'react';
 
 export default function CartPage() {
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { items, restaurantName, updateQuantity, removeItem, clearCart, getTotalPrice } = useCartStore();
 
   if (items.length === 0) {
@@ -23,10 +26,25 @@ export default function CartPage() {
     );
   }
 
-  const handleCheckout = () => {
-    alert('결제가 완료되었습니다! (임시 알림)');
-    clearCart();
-    router.push('/');
+  const handleCheckout = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await createOrder(items, getTotalPrice());
+      if (response.success) {
+        alert('주문이 성공적으로 접수되었습니다!');
+        clearCart();
+        router.push('/orders');
+      } else {
+        alert(response.error);
+        if (response.error === '로그인이 필요합니다.') {
+          router.push('/login');
+        }
+      }
+    } catch (error) {
+      alert('오류가 발생했습니다.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,19 +138,20 @@ export default function CartPage() {
         </div>
         <button 
           onClick={handleCheckout}
+          disabled={isSubmitting}
           style={{
             width: '100%',
-            backgroundColor: '#d9534f',
+            backgroundColor: isSubmitting ? '#a1887f' : '#d9534f',
             color: 'white',
             padding: '1rem',
             borderRadius: '8px',
             border: 'none',
             fontSize: '1.2rem',
             fontWeight: 'bold',
-            cursor: 'pointer'
+            cursor: isSubmitting ? 'not-allowed' : 'pointer'
           }}
         >
-          {getTotalPrice().toLocaleString()}원 배달 주문하기
+          {isSubmitting ? '주문 처리 중...' : `${getTotalPrice().toLocaleString()}원 배달 주문하기`}
         </button>
       </div>
     </div>
