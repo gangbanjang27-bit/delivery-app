@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { getSession } from '@/lib/auth';
 import { logout } from '@/actions/auth';
 import { redirect } from 'next/navigation';
+import CartNavIcon from '@/components/CartNavIcon';
 
 export const metadata: Metadata = {
   title: '홍길동배달',
@@ -29,6 +30,7 @@ export default async function RootLayout({
             <div className="nav-links">
               {session ? (
                 <>
+                  <CartNavIcon />
                   <Link href="/orders">주문내역</Link>
                   <form action={async () => {
                     'use server';
@@ -40,6 +42,7 @@ export default async function RootLayout({
                 </>
               ) : (
                 <>
+                  <CartNavIcon />
                   <Link href="/login">로그인</Link>
                   <Link href="/signup" className="btn" style={{ padding: '0.5rem 1rem' }}>회원가입</Link>
                 </>
