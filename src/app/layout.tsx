@@ -29,7 +29,7 @@ export default async function RootLayout({
             <div className="nav-links">
               {session ? (
                 <>
-                  <Link href="/orders">내 주문내역</Link>
+                  <Link href="/orders">주문내역</Link>
                   <form action={async () => {
                     'use server';
                     await logout();

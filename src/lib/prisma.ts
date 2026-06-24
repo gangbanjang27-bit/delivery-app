@@ -2,23 +2,25 @@ import { PrismaClient } from '@prisma/client';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 
+// Suppress 'pg' package SSL warning that triggers Next.js dev overlay
+const originalEmitWarning = process.emitWarning;
+// @ts-ignore
+process.emitWarning = function (warning, type, code, ...args) {
+  if (typeof warning === 'string' && warning.includes('SECURITY WARNING: The SSL modes')) return;
+  return originalEmitWarning(warning, type as any, code as any, ...args);
+};
+
 const connectionString = `${process.env.DATABASE_URL}`;
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = global as unknown as { prismaDB3: PrismaClient };
 
-let prisma: PrismaClient;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
 
-if (process.env.NODE_ENV === 'production') {
-  const pool = new Pool({ connectionString });
-  const adapter = new PrismaPg(pool);
-  prisma = new PrismaClient({ adapter });
-} else {
-  if (!globalForPrisma.prisma) {
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaPg(pool);
-    globalForPrisma.prisma = new PrismaClient({ adapter });
-  }
-  prisma = globalForPrisma.prisma;
-}
+export const prisma =
+  globalForPrisma.prismaDB3 ||
+  new PrismaClient({ adapter });
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prismaDB3 = prisma;
 
 export default prisma;
