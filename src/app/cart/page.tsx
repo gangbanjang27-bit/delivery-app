@@ -133,7 +133,7 @@ export default function CartPage() {
           fontWeight: 'bold',
           color: '#3e2723'
         }}>
-          <span>총 결제 금액</span>
+          <span>총 주문 금액</span>
           <span>{getTotalPrice().toLocaleString()}원</span>
         </div>
         <button 

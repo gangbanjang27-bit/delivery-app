@@ -90,7 +90,7 @@ export default async function OrdersPage() {
                     fontSize: '0.9rem',
                     fontWeight: 'bold'
                   }}>
-                    {order.status === 'COMPLETED' ? '배달 완료' : order.status}
+                    {order.status === 'COMPLETED' ? '주문 완료' : order.status}
                   </div>
                 </div>
 
@@ -129,7 +129,7 @@ export default async function OrdersPage() {
                   justifyContent: 'space-between',
                   alignItems: 'center'
                 }}>
-                  <span style={{ fontWeight: 'bold', color: '#3e2723' }}>총 결제 금액</span>
+                  <span style={{ fontWeight: 'bold', color: '#3e2723' }}>총 주문 금액</span>
                   <strong style={{ fontSize: '1.4rem', color: '#d9534f' }}>
                     {order.totalPrice.toLocaleString()}원
                   </strong>
