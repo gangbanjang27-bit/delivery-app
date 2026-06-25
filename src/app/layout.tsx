@@ -31,13 +31,15 @@ export default async function RootLayout({
               {session ? (
                 <>
                   <CartNavIcon />
-                  <Link href="/orders">주문내역</Link>
+                  <Link href="/orders" style={{ textDecoration: 'none', color: 'inherit', display: 'inline-flex', alignItems: 'baseline', gap: '1px' }}>
+                    <span>🧾</span><span>주문내역</span>
+                  </Link>
                   <form action={async () => {
                     'use server';
                     await logout();
                     redirect('/login');
-                  }}>
-                    <button type="submit" style={{ background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 500, fontSize: '1rem' }}>로그아웃</button>
+                  }} style={{ margin: 0, display: 'inline-block' }}>
+                    <button type="submit" style={{ fontFamily: 'inherit', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', fontWeight: 500, fontSize: '1rem', padding: 0 }}>로그아웃</button>
                   </form>
                 </>
               ) : (

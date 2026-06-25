@@ -16,15 +16,15 @@ export default function CartNavIcon() {
 
   if (!mounted) {
     return (
-      <Link href="/cart" style={{ textDecoration: 'none', color: 'inherit', position: 'relative', display: 'inline-block', padding: '0.5rem 1rem' }}>
-        🛒 장바구니
+      <Link href="/cart" style={{ textDecoration: 'none', color: 'inherit', position: 'relative', display: 'inline-flex', alignItems: 'baseline', gap: '1px' }}>
+        <span>🛒</span><span>장바구니</span>
       </Link>
     );
   }
 
   return (
-    <Link href="/cart" style={{ textDecoration: 'none', color: 'inherit', position: 'relative', display: 'inline-block', padding: '0.5rem 1rem' }}>
-      🛒 장바구니
+    <Link href="/cart" style={{ textDecoration: 'none', color: 'inherit', position: 'relative', display: 'inline-flex', alignItems: 'baseline', gap: '1px' }}>
+      <span>🛒</span><span>장바구니</span>
       {quantity > 0 && (
         <span style={{
           position: 'absolute',

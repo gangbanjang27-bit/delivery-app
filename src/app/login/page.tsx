@@ -35,7 +35,7 @@ export default function LoginPage() {
     return (
       <div style={{
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', 
-        height: '100vh', width: '100vw', backgroundColor: '#fdfdfd'
+        height: '70vh', width: '100%'
       }}>
         <style dangerouslySetInnerHTML={{ __html: `
           @keyframes runAround {
@@ -57,7 +57,7 @@ export default function LoginPage() {
         />
         <h2 style={{
           fontFamily: 'EbsHunminjeongeumSaeron, serif', fontSize: '2rem', marginTop: '2rem', color: 'var(--text)',
-          animation: 'pulseText 1s infinite alternate'
+          animation: 'pulseText 1s infinite alternate', textAlign: 'center'
         }}>
           홍길동이 달려가는 중...
         </h2>
