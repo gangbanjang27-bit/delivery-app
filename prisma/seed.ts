@@ -119,7 +119,7 @@ async function main() {
 
     const CUSTOM_IMAGE_MAP: Record<string, string> = {
       '아이스 아메리카노 (벤티)': 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=400',
-      '수제 바닐라빈 라떼': 'https://images.unsplash.com/photo-1461023058943-07cb1ce8db16?w=400',
+      '수제 바닐라빈 라떼': 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400',
       '디카페인 콜드브루': 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=400',
       '클래식 딥치즈 버거': 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
       '더블 베이컨 스매시 버거': 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=400',

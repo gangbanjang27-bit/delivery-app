@@ -45,6 +45,7 @@ export default async function OrdersPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {orders.map((order) => {
             const date = new Date(order.createdAt).toLocaleString('ko-KR', {
+              timeZone: 'Asia/Seoul',
               year: 'numeric',
               month: 'long',
               day: 'numeric',
